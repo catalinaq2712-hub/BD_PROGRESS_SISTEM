@@ -1,0 +1,86 @@
+{
+  "usuarios": [
+    { "id": 1, "nombre": "Ana García", "email": "ana@email.com", "edad": 28, "activo": true },
+    { "id": 2, "nombre": "Carlos López", "email": "carlos@email.com", "edad": 34, "activo": true },
+    { "id": 3, "nombre": "María Rodríguez", "email": "maria@email.com", "edad": 25, "activo": false }
+  ],
+  "productos": [
+    { "id": 1, "nombre": "Laptop", "precio": 899.99, "stock": 15, "categoria": "electrónica" },
+    { "id": 2, "nombre": "Mouse", "precio": 25.50, "stock": 50, "categoria": "electrónica" },
+    { "id": 3, "nombre": "Cuaderno", "precio": 3.99, "stock": 100, "categoria": "papelería" }
+  ],
+  "pedidos": [
+    { "id": 1, "usuario_id": 1, "fecha": "2024-01-15", "total": 925.49, "estado": "entregado" },
+    { "id": 2, "usuario_id": 2, "fecha": "2024-02-20", "total": 25.50, "estado": "enviado" }
+  ],
+  "categorias": [
+    { "id": 1, "nombre": "electrónica", "descripcion": "Dispositivos electrónicos" },
+    { "id": 2, "nombre": "papelería", "descripcion": "Artículos de oficina" },
+    { "id": 3, "nombre": "hogar", "descripcion": "Artículos para el hogar" }
+  ],
+  "clientes": [
+    { "id": 1, "nombre": "Empresa ABC", "tipo": "corporativo", "contacto": "Juan Pérez" },
+    { "id": 2, "nombre": "María Gómez", "tipo": "particular", "contacto": "María Gómez" }
+  ],
+  "empleados": [
+    { "id": 1, "nombre": "Laura Martínez", "puesto": "vendedor", "salario": 2500, "departamento_id": 1 },
+    { "id": 2, "nombre": "Pedro Sánchez", "puesto": "gerente", "salario": 4000, "departamento_id": 2 }
+  ],
+  "departamentos": [
+    { "id": 1, "nombre": "Ventas", "ubicacion": "Planta baja" },
+    { "id": 2, "nombre": "Administración", "ubicacion": "Primer piso" }
+  ],
+  "ventas": [
+    { "id": 1, "producto_id": 1, "cantidad": 2, "fecha": "2024-01-10", "vendedor_id": 1 },
+    { "id": 2, "producto_id": 2, "cantidad": 5, "fecha": "2024-01-12", "vendedor_id": 1 }
+  ],
+  "proveedores": [
+    { "id": 1, "nombre": "TechSupply S.A.", "telefono": "555-0101", "ciudad": "Madrid" },
+    { "id": 2, "nombre": "OfficePlus", "telefono": "555-0202", "ciudad": "Barcelona" }
+  ],
+  "inventario": [
+    { "id": 1, "producto_id": 1, "ubicacion": "Almacén A", "stock_minimo": 5, "stock_maximo": 50 },
+    { "id": 2, "producto_id": 2, "ubicacion": "Almacén B", "stock_minimo": 20, "stock_maximo": 200 }
+  ],
+  "facturas": [
+    { "id": 1, "pedido_id": 1, "fecha_emision": "2024-01-16", "monto": 925.49, "pagada": true },
+    { "id": 2, "pedido_id": 2, "fecha_emision": "2024-02-21", "monto": 25.50, "pagada": false }
+  ],
+  "reseñas": [
+    { "id": 1, "producto_id": 1, "usuario_id": 1, "puntuacion": 5, "comentario": "Excelente producto" },
+    { "id": 2, "producto_id": 2, "usuario_id": 2, "puntuacion": 4, "comentario": "Buen costo-beneficio" }
+  ],
+  "carrito_compras": [
+    { "id": 1, "usuario_id": 3, "productos": [{"id": 1, "cantidad": 1}], "total": 899.99 },
+    { "id": 2, "usuario_id": 1, "productos": [{"id": 2, "cantidad": 2}], "total": 51.00 }
+  ],
+  "suscripciones": [
+    { "id": 1, "usuario_id": 1, "plan": "premium", "fecha_inicio": "2024-01-01", "activa": true },
+    { "id": 2, "usuario_id": 2, "plan": "basico", "fecha_inicio": "2024-02-01", "activa": true }
+  ],
+  "pagos": [
+    { "id": 1, "factura_id": 1, "metodo": "tarjeta", "fecha_pago": "2024-01-16", "referencia": "TXN123" },
+    { "id": 2, "factura_id": 2, "metodo": "transferencia", "fecha_pago": null, "referencia": null }
+  ],
+  "envios": [
+    { "id": 1, "pedido_id": 1, "direccion": "Calle Principal 123", "estado": "entregado", "fecha_entrega": "2024-01-18" },
+    { "id": 2, "pedido_id": 2, "direccion": "Avenida Central 456", "estado": "en_transito", "fecha_entrega": null }
+  ],
+  "cupones": [
+    { "id": 1, "codigo": "DESC10", "descuento": 10, "valido_hasta": "2024-12-31", "usos": 45 },
+    { "id": 2, "codigo": "BIENVENIDA", "descuento": 15, "valido_hasta": "2024-06-30", "usos": 120 }
+  ],
+  "logs_actividad": [
+    { "id": 1, "usuario_id": 1, "accion": "login", "fecha": "2024-03-01 10:30:00", "ip": "192.168.1.1" },
+    { "id": 2, "usuario_id": 2, "accion": "compra", "fecha": "2024-03-01 11:15:00", "ip": "192.168.1.2" }
+  ],
+  "configuracion": [
+    { "id": 1, "clave": "moneda", "valor": "EUR", "descripcion": "Moneda principal del sistema" },
+    { "id": 2, "clave": "impuesto", "valor": 21, "descripcion": "IVA general" },
+    { "id": 3, "clave": "envio_gratis", "valor": 50, "descripcion": "Monto mínimo para envío gratis" }
+  ],
+  "notificaciones": [
+    { "id": 1, "usuario_id": 1, "mensaje": "Tu pedido ha sido enviado", "leida": false, "fecha": "2024-03-01" },
+    { "id": 2, "usuario_id": 2, "mensaje": "Oferta especial para ti", "leida": true, "fecha": "2024-02-28" }
+  ]
+}

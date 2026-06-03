@@ -1,0 +1,166 @@
+basededatos:
+  usuarios:
+    - id: 1
+      nombre: Ana García
+      email: ana@email.com
+      edad: 28
+      activo: true
+    - id: 2
+      nombre: Carlos López
+      email: carlos@email.com
+      edad: 34
+      activo: true
+    - id: 3
+      nombre: María Rodríguez
+      email: maria@email.com
+      edad: 25
+      activo: false
+
+  productos:
+    - id: 1
+      nombre: Laptop
+      precio: 899.99
+      stock: 15
+      categoria_id: 1
+    - id: 2
+      nombre: Mouse
+      precio: 25.50
+      stock: 50
+      categoria_id: 1
+    - id: 3
+      nombre: Teclado
+      precio: 79.99
+      stock: 30
+      categoria_id: 1
+    - id: 4
+      nombre: Monitor
+      precio: 199.99
+      stock: 10
+      categoria_id: 2
+
+  categorias:
+    - id: 1
+      nombre: electrónica
+      descripcion: Dispositivos electrónicos
+    - id: 2
+      nombre: papelería
+      descripcion: Artículos de oficina
+    - id: 3
+      nombre: hogar
+      descripcion: Artículos para el hogar
+
+  pedidos:
+    - id: 1
+      usuario_id: 1
+      fecha: 2024-01-15
+      total: 925.49
+      estado: entregado
+    - id: 2
+      usuario_id: 2
+      fecha: 2024-02-20
+      total: 25.50
+      estado: enviado
+    - id: 3
+      usuario_id: 3
+      fecha: 2024-02-25
+      total: 199.99
+      estado: pendiente
+
+  clientes:
+    - id: 1
+      nombre: Empresa ABC
+      tipo: corporativo
+      contacto: Juan Pérez
+      ciudad: Madrid
+    - id: 2
+      nombre: María Gómez
+      tipo: particular
+      contacto: María Gómez
+      ciudad: Barcelona
+    - id: 3
+      nombre: Tech Solutions
+      tipo: corporativo
+      contacto: Carlos Ruiz
+      ciudad: Valencia
+
+  empleados:
+    - id: 1
+      nombre: Laura Martínez
+      puesto: vendedor
+      salario: 2500
+      departamento_id: 1
+    - id: 2
+      nombre: Pedro Sánchez
+      puesto: gerente
+      salario: 4000
+      departamento_id: 2
+    - id: 3
+      nombre: Ana Belén
+      puesto: soporte
+      salario: 2200
+      departamento_id: 3
+
+  departamentos:
+    - id: 1
+      nombre: Ventas
+      ubicacion: Planta baja
+      presupuesto: 150000
+    - id: 2
+      nombre: Administración
+      ubicacion: Primer piso
+      presupuesto: 100000
+    - id: 3
+      nombre: Soporte
+      ubicacion: Segundo piso
+      presupuesto: 80000
+
+  proveedores:
+    - id: 1
+      nombre: TechSupply S.A.
+      telefono: 555-0101
+      ciudad: Madrid
+      email: ventas@techsupply.com
+    - id: 2
+      nombre: OfficePlus
+      telefono: 555-0202
+      ciudad: Barcelona
+      email: info@officeplus.com
+    - id: 3
+      nombre: GlobalImport
+      telefono: 555-0303
+      ciudad: Valencia
+      email: contacto@global.com
+
+  ventas:
+    - id: 1
+      producto_id: 1
+      cantidad: 2
+      fecha: 2024-01-10
+      vendedor_id: 1
+    - id: 2
+      producto_id: 2
+      cantidad: 5
+      fecha: 2024-01-12
+      vendedor_id: 1
+    - id: 3
+      producto_id: 4
+      cantidad: 1
+      fecha: 2024-01-15
+      vendedor_id: 2
+
+  facturas:
+    - id: 1
+      pedido_id: 1
+      fecha_emision: 2024-01-16
+      monto: 925.49
+      pagada: true
+    - id: 2
+      pedido_id: 2
+      fecha_emision: 2024-02-21
+      monto: 25.50
+      pagada: false
+    - id: 3
+      pedido_id: 3
+      fecha_emision: 2024-02-26
+      monto: 199.99
+      pagada: false

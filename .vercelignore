@@ -1,0 +1,17 @@
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+uploads/
+scratch/
+.git/
+*.dbml
+*.sql
+*.csv
+*.xlsx
+*.yaml
+*.yml
+Pruebatxt.txt
+20tablasjson.json
+data.json

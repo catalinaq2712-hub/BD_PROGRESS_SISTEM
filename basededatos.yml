@@ -1,0 +1,67 @@
+basededatos:
+  usuarios:
+    - id: 1
+      nombre: Ana García
+      email: ana@email.com
+      edad: 28
+      activo: true
+    - id: 2
+      nombre: Carlos López
+      email: carlos@email.com
+      edad: 34
+      activo: true
+    - id: 3
+      nombre: María Rodríguez
+      email: maria@email.com
+      edad: 25
+      activo: false
+
+  productos:
+    - id: 1
+      nombre: Laptop
+      precio: 899.99
+      stock: 15
+      categoria_id: 1
+    - id: 2
+      nombre: Mouse
+      precio: 25.50
+      stock: 50
+      categoria_id: 1
+    - id: 3
+      nombre: Teclado
+      precio: 79.99
+      stock: 30
+      categoria_id: 1
+    - id: 4
+      nombre: Monitor
+      precio: 199.99
+      stock: 10
+      categoria_id: 2
+
+  categorias:
+    - id: 1
+      nombre: electrónica
+      descripcion: Dispositivos electrónicos
+    - id: 2
+      nombre: papelería
+      descripcion: Artículos de oficina
+    - id: 3
+      nombre: hogar
+      descripcion: Artículos para el hogar
+
+  pedidos:
+    - id: 1
+      usuario_id: 1
+      fecha: 2024-01-15
+      total: 925.49
+      estado: entregado
+    - id: 2
+      usuario_id: 2
+      fecha: 2024-02-20
+      total: 25.50
+      estado: enviado
+    - id: 3
+      usuario_id: 3
+      fecha: 2024-02-25
+      total: 199.99
+      estado: pendiente

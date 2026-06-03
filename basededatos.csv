@@ -1,0 +1,60 @@
+TABLA,usuarios
+id,nombre,email,edad,activo
+1,Ana García,ana@email.com,28,true
+2,Carlos López,carlos@email.com,34,true
+3,María Rodríguez,maria@email.com,25,false
+
+TABLA,productos
+id,nombre,precio,stock,categoria_id
+1,Laptop,899.99,15,1
+2,Mouse,25.50,50,1
+3,Teclado,79.99,30,1
+4,Monitor,199.99,10,2
+
+TABLA,categorias
+id,nombre,descripcion
+1,electrónica,Dispositivos electrónicos
+2,papelería,Artículos de oficina
+3,hogar,Artículos para el hogar
+
+TABLA,pedidos
+id,usuario_id,fecha,total,estado
+1,1,2024-01-15,925.49,entregado
+2,2,2024-02-20,25.50,enviado
+3,3,2024-02-25,199.99,pendiente
+
+TABLA,clientes
+id,nombre,tipo,contacto,ciudad
+1,Empresa ABC,corporativo,Juan Pérez,Madrid
+2,María Gómez,particular,María Gómez,Barcelona
+3,Tech Solutions,corporativo,Carlos Ruiz,Valencia
+
+TABLA,empleados
+id,nombre,puesto,salario,departamento_id
+1,Laura Martínez,vendedor,2500,1
+2,Pedro Sánchez,gerente,4000,2
+3,Ana Belén,soporte,2200,3
+
+TABLA,departamentos
+id,nombre,ubicacion,presupuesto
+1,Ventas,Planta baja,150000
+2,Administración,Primer piso,100000
+3,Soporte,Segundo piso,80000
+
+TABLA,proveedores
+id,nombre,telefono,ciudad,email
+1,TechSupply S.A.,555-0101,Madrid,ventas@techsupply.com
+2,OfficePlus,555-0202,Barcelona,info@officeplus.com
+3,GlobalImport,555-0303,Valencia,contacto@global.com
+
+TABLA,ventas
+id,producto_id,cantidad,fecha,vendedor_id
+1,1,2,2024-01-10,1
+2,2,5,2024-01-12,1
+3,4,1,2024-01-15,2
+
+TABLA,facturas
+id,pedido_id,fecha_emision,monto,pagada
+1,1,2024-01-16,925.49,true
+2,2,2024-02-21,25.50,false
+3,3,2024-02-26,199.99,false

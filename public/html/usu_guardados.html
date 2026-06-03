@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DataScript AI - Documentos guardados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/usu_panel.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <script src="../js/components/Sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- TinyMCE Editor WYSIWYG CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
+    <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+        alert("⚠️ ERROR DETECTADO (Guardados): " + message + " en " + source + ":" + lineno);
+    };
+    window.onunhandledrejection = function(event) {
+        alert("⚠️ PROMESA RECHAZADA (Guardados): " + event.reason);
+    };
+    
+    // Si no hay sesión iniciada, expulsar al login inmediatamente
+    if (!sessionStorage.getItem('ds_logged')) {
+        window.location.replace('login.html');
+    }
+    
+    // Controlar el evento 'pageshow' para cuando el navegador vuelve atrás usando caché
+    window.addEventListener('pageshow', function (event) {
+        if (!sessionStorage.getItem('ds_logged')) {
+            window.location.replace('login.html');
+        }
+    });
+
+    async function logoutSession() {
+        try {
+            if (window.supabaseClient && window.supabaseClient.auth) {
+                await window.supabaseClient.auth.signOut();
+            } else if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
+                await supabaseClient.auth.signOut();
+            }
+        } catch (err) {
+            console.error('Error al cerrar sesión en Supabase:', err);
+        }
+        sessionStorage.clear();
+        window.location.replace('login.html');
+    }
+    </script>
+</head>
+<body>
+<div class="dashboard-wrapper">
+    <app-sidebar active-page="guardados"></app-sidebar>
+    <main class="content">
+        <h1>Documentos guardados</h1>
+        <div id="documentosContainer"></div>
+        <div id="papeleraContainer"></div>
+        <footer class="footer"><center>Tiempo de actividad: Año 2026</center></footer>
+    </main>
+</div>
+<div id="docModal" class="modal" style="display:none;">
+    <div class="modal-content"><span class="close-modal">&times;</span><div id="modalBody"></div></div>
+</div>
+<script src="../js/usu_guardados.js"></script>
+</body>
+</html>

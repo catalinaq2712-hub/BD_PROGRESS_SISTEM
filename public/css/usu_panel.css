@@ -1,0 +1,466 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0e1a;
+            color: #eef2ff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar styles are now loaded from public/css/sidebar.css */
+
+
+        /* Main content - con scroll vertical */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 40px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid #2d3a5e;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Tarjetas */
+        .cards-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid #2d3a5e;
+            border-radius: 24px;
+            padding: 20px;
+            flex: 1;
+            min-width: 180px;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #5e6ad2;
+        }
+
+        .stat-card h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #f0f4ff;
+            margin: 8px 0;
+        }
+
+        .ingresar-link {
+            color: #a78bfa;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .ingresar-link:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+
+        /* Gráfico */
+        .chart-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .chart-container h3 {
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        canvas {
+            max-height: 300px;
+            width: 100%;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #9ca3af;
+        }
+
+.content h1{
+        padding: 15px;
+    }
+
+/* --- Estilos para Documentos Guardados (Tablas, Botones y Modales) --- */
+.seccion-tabla {
+    margin-top: 30px;
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid #2d3a5e;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.seccion-tabla h2 {
+    font-size: 1.2rem;
+    color: #a78bfa;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: #e2e8f0;
+}
+
+.doc-table th {
+    padding: 14px 16px;
+    background: rgba(30, 41, 59, 0.6);
+    border-bottom: 2px solid #2d3a5e;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+.doc-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #2d3a5e;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+}
+
+.doc-table tr:hover {
+    background: rgba(30, 41, 59, 0.4);
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button, .restore-pap, .delete-perm {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+/* Ver */
+.action-buttons button.view-doc, .restore-pap {
+    background: rgba(167, 139, 250, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.action-buttons button.view-doc:hover, .restore-pap:hover {
+    background: #a78bfa;
+    color: #111827;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+}
+
+/* Editar */
+.action-buttons button.edit-doc {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.action-buttons button.edit-doc:hover {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+/* Eliminar */
+.action-buttons button.delete-doc, .delete-perm {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.action-buttons button.delete-doc:hover, .delete-perm:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+/* Mensaje vacío */
+.empty-message {
+    padding: 30px;
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    background: rgba(30, 41, 59, 0.2);
+    border-radius: 12px;
+    border: 1px dashed #2d3a5e;
+}
+
+/* Modal Premium */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #111827;
+    border: 1px solid #2d3a5e;
+    border-radius: 24px;
+    width: 98%;
+    max-width: none;
+    height: 95vh;
+    max-height: 95vh;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 2rem;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #f87171;
+}
+
+/* Compartir */
+.action-buttons button.share-doc {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.action-buttons button.share-doc:hover {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* Share Modal Layout */
+.share-modal-container {
+    color: #f3f4f6;
+    font-family: 'Outfit', sans-serif;
+}
+
+.share-modal-title {
+    font-size: 1.4rem;
+    color: #a78bfa;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.share-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+.share-select {
+    flex: 1;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #f3f4f6;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.share-select option {
+    background: #111827;
+}
+
+.share-submit-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.share-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.shared-list-title {
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.shared-users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #2d3a5e;
+}
+
+.shared-user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.shared-user-name {
+    font-size: 0.9rem;
+    color: #e5e7eb;
+}
+
+.revoke-share-btn {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.revoke-share-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* ========== EDITOR A4 PREVIEW ========== */
+.a4-sheet {
+    background: #ffffff;
+    color: #1f2937;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 40px;
+    padding: 15mm 20mm;
+    box-shadow: 0 0 0 1px #d1d5db, 0 12px 40px rgba(0,0,0,0.45);
+    font-family: 'Outfit', sans-serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 2px;
+}
+.a4-sheet:last-child {
+    margin-bottom: 16px;
+}
+.page-break-line {
+    display: block;
+    height: 0;
+    border-top: 2px dashed #a78bfa;
+    margin: 0 -20mm;
+    page-break-after: always;
+    position: relative;
+}
+.page-break-line::after {
+    content: 'Salto de página';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f111a;
+    color: #a78bfa;
+    font-size: 0.65rem;
+    padding: 0 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Ajustes modal edición */
+.modal-content {
+    max-height: 95vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+#modalBody {
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+.edit-modal-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollbar personalizado para la preview */
+#a4PreviewScroll::-webkit-scrollbar {
+    width: 8px;
+}
+#a4PreviewScroll::-webkit-scrollbar-track {
+    background: #0f111a;
+}
+#a4PreviewScroll::-webkit-scrollbar-thumb {
+    background: #2d3a5e;
+    border-radius: 4px;
+}
+#a4PreviewScroll::-webkit-scrollbar-thumb:hover {
+    background: #5e6ad2;
+}
+

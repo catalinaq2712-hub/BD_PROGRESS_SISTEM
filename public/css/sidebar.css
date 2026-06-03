@@ -1,0 +1,108 @@
+/* ==========================================================================
+   DataScript AI - Shared Sidebar Stylesheet (Premium Design System)
+   ========================================================================== */
+
+app-sidebar {
+    display: block;
+    flex-shrink: 0;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 270px;
+    background: #111827;
+    border-right: 1px solid #2d3a5e;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+.logo-sidebar {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 24px 16px;
+    margin-top: 0;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #a78bfa, #5e6ad2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    border-bottom: 1px solid #2d3a5e;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+    user-select: none;
+}
+
+.menu-item {
+    padding: 12px 20px;
+    margin: 4px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    color: #cbd5e1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+/* Icon styles in menu item */
+.menu-item .menu-icon-svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.menu-item .menu-icon-svg,
+.menu-item .menu-icon-svg * {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-item:hover {
+    background: #1e293b;
+    color: #ffffff;
+}
+
+.menu-item:hover .menu-icon-svg {
+    transform: translateX(2px);
+}
+
+.menu-item.active {
+    background: #5e6ad2;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(94, 106, 210, 0.3);
+    font-weight: 600;
+}
+
+.menu-item.active .menu-icon-svg {
+    stroke: #ffffff;
+}
+
+/* Logout button specific styles */
+.menu-item.logout {
+    margin-top: auto;
+    margin-bottom: 12px;
+    color: #f87171;
+    border: 1px dashed rgba(248, 113, 113, 0.2);
+}
+
+.menu-item.logout:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border-color: rgba(248, 113, 113, 0.4);
+}

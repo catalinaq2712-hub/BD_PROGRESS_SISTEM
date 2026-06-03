@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataScript AI - Gestión de Usuarios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/usu_panel.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <script src="../js/components/Sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .filter-input {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            padding: 10px 16px !important;
+            border-radius: 10px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.9rem !important;
+            outline: none !important;
+            transition: all 0.3s ease !important;
+            box-shadow: none !important;
+        }
+        .filter-input:focus {
+            border-color: #7b88ff !important;
+            box-shadow: 0 0 12px rgba(123, 136, 255, 0.25) !important;
+            background: rgba(15, 23, 42, 0.85) !important;
+        }
+        .filter-select {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            padding: 10px 32px 10px 16px !important;
+            border-radius: 10px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.9rem !important;
+            outline: none !important;
+            cursor: pointer !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 12px center !important;
+            transition: all 0.3s ease !important;
+        }
+        .filter-select:focus {
+            border-color: #7b88ff !important;
+            box-shadow: 0 0 12px rgba(123, 136, 255, 0.25) !important;
+            background-color: rgba(15, 23, 42, 0.85) !important;
+        }
+        .users-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .create-user-btn {
+            background: linear-gradient(135deg, #7b88ff, #9d4edd);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .create-user-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(157, 78, 221, 0.6);
+            background: linear-gradient(135deg, #8c97ff, #ae5efd);
+        }
+
+        .search-filters-container {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background: rgba(17, 24, 39, 0.45);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #2d3a5e;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .user-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2d3a5e;
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            border-color: #7b88ff;
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 10px 30px rgba(94, 106, 210, 0.1);
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #2d3a5e;
+            transition: background 0.3s;
+        }
+
+        .user-card.role-admin::before { background: #4caf50; }
+        .user-card.role-premium::before { background: #ffcc80; }
+        .user-card.role-usuario::before { background: #60a5fa; }
+
+        .user-avatar-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #2d3a5e;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .user-card:hover .user-avatar-container {
+            border-color: #7b88ff;
+        }
+
+        .user-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-avatar-initials {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #7b88ff, #9d4edd);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f3f4f6;
+            margin-bottom: 4px;
+        }
+
+        .user-email {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-bottom: 16px;
+            word-break: break-all;
+        }
+
+        .badges-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge-role {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-role.admin { background: rgba(76, 175, 80, 0.15); color: #81c784; border: 1px solid rgba(76, 175, 80, 0.3); }
+        .badge-role.premium { background: rgba(255, 167, 38, 0.15); color: #ffcc80; border: 1px solid rgba(255, 167, 38, 0.3); }
+        .badge-role.usuario { background: rgba(96, 165, 250, 0.15); color: #93c5fd; border: 1px solid rgba(96, 165, 250, 0.3); }
+
+        .badge-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-status.activo { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-status.suspendido { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .user-stats {
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .user-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .user-stat-val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .user-stat-lbl {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .card-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .card-btn.edit {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #2d3a5e;
+            color: #e5e7eb;
+        }
+
+        .card-btn.edit:hover {
+            background: rgba(123, 136, 255, 0.15);
+            border-color: #7b88ff;
+            color: #fff;
+        }
+
+        .card-btn.delete {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .card-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #fff;
+        }
+
+        /* Modales */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 12, 22, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .admin-modal {
+            background: linear-gradient(135deg, rgba(25, 29, 48, 0.98), rgba(15, 17, 30, 0.99));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            padding: 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(94, 106, 210, 0.15);
+            transform: translateY(30px);
+            transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.active .admin-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #9ca3af;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .form-input {
+            background: #111827;
+            border: 1px solid #2d3a5e;
+            color: #f3f4f6;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #7b88ff;
+        }
+
+        .form-select {
+            background: #111827;
+            border: 1px solid #2d3a5e;
+            color: #f3f4f6;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            border-color: #7b88ff;
+        }
+
+        .photo-uploader {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed #2d3a5e;
+            border-radius: 12px;
+        }
+
+        .photo-preview-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            border: 2px solid #2d3a5e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-upload-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #2d3a5e;
+            color: #e5e7eb;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .photo-upload-btn:hover {
+            background: rgba(123, 136, 255, 0.1);
+            border-color: #7b88ff;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid #2d3a5e;
+            color: #9ca3af;
+        }
+
+        .modal-btn.cancel:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .modal-btn.submit {
+            background: linear-gradient(135deg, #7b88ff, #9d4edd);
+            border: none;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .modal-btn.submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(157, 78, 221, 0.5);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            background: rgba(30, 41, 59, 0.2);
+            border: 1px dashed #2d3a5e;
+            border-radius: 20px;
+            color: #9ca3af;
+            font-style: italic;
+            grid-column: 1 / -1;
+        }
+    </style>
+    <script>
+        // Si no hay sesión de administrador, expulsar
+        if (!sessionStorage.getItem('ds_logged') || sessionStorage.getItem('ds_role') !== 'admin') {
+            window.location.replace('login.html');
+        }
+    </script>
+</head>
+<body>
+<div class="dashboard-wrapper">
+    <app-sidebar active-page="usuarios"></app-sidebar>
+    
+    <main class="content">
+        <div class="users-header">
+            <div>
+                <h1>Gestión de Usuarios</h1>
+                <p style="color: #9ca3af; margin-top: 4px;">Crea, modifica, suspende y administra perfiles de usuario con roles Premium.</p>
+            </div>
+            <button class="create-user-btn" id="openCreateModalBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Nuevo Usuario
+            </button>
+        </div>
+
+        <section class="search-filters-container">
+            <div class="filter-group" style="flex: 2; min-width: 250px;">
+                <span class="filter-label">Buscar</span>
+                <input type="text" id="searchInput" class="filter-input" placeholder="Buscar por nombre, apellido o correo electrónico...">
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Filtrar por Rol</span>
+                <select id="roleFilter" class="filter-select">
+                    <option value="todos">Todos los roles</option>
+                    <option value="admin">Administrador</option>
+                    <option value="premium">Premium</option>
+                    <option value="usuario">Usuario Estándar</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Filtrar por Estado</span>
+                <select id="statusFilter" class="filter-select">
+                    <option value="todos">Todos los estados</option>
+                    <option value="activo">Activos</option>
+                    <option value="suspendido">Suspendidos</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="users-grid" id="usersGrid">
+            <!-- Cargando Usuarios... -->
+        </section>
+    </main>
+</div>
+
+<!-- Modal de Crear / Editar Usuario -->
+<div class="modal-backdrop" id="userModalBackdrop">
+    <div class="admin-modal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalTitle">Crear Nuevo Usuario</h3>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <form id="userForm">
+            <input type="hidden" id="userIdField">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="nombreField">Nombres</label>
+                    <input type="text" id="nombreField" class="form-input" required placeholder="Escriba los nombres">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="apellidoField">Apellidos</label>
+                    <input type="text" id="apellidoField" class="form-input" required placeholder="Escriba los apellidos">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="emailField">Email</label>
+                    <input type="email" id="emailField" class="form-input" required placeholder="correo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="passwordField" id="passwordLabel">Contraseña</label>
+                    <input type="password" id="passwordField" class="form-input" placeholder="Nueva contraseña">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="roleField">Rol</label>
+                    <select id="roleField" class="form-select">
+                        <option value="usuario">Usuario Estándar</option>
+                        <option value="premium">Premium</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="statusField">Estado de Cuenta</label>
+                    <select id="statusField" class="form-select">
+                        <option value="activo">Activo</option>
+                        <option value="suspendido">Suspendido / Bloqueado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="usoField">Tipo de Uso</label>
+                    <select id="usoField" class="form-select">
+                        <option value="educativo">Educativo</option>
+                        <option value="profesional">Profesional</option>
+                        <option value="personal">Personal / Investigativo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Foto de Perfil</label>
+                    <div class="photo-uploader">
+                        <div class="photo-preview-box">
+                            <img id="photoPreview" class="photo-preview-img" style="display: none;">
+                            <span id="photoInitials" style="font-size: 1.5rem; font-weight: 700; color: #fff;">?</span>
+                        </div>
+                        <input type="file" id="photoFile" accept="image/*" style="display: none;">
+                        <button type="button" class="photo-upload-btn" onclick="document.getElementById('photoFile').click()">Seleccionar Imagen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="modal-btn cancel" id="cancelModalBtn">Cancelar</button>
+                <button type="submit" class="modal-btn submit" id="saveUserBtn">Guardar Usuario</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../js/usu_usuarios.js"></script>
+</body>
+</html>

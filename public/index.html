@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataScript AI - Documentación Inteligente de Bases de Datos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+
+<body>
+    <!-- Global Particle Network (fixed behind everything) -->
+    <canvas id="particle-canvas" class="bg-particles"></canvas>
+
+    <!-- Background Grid -->
+    <div class="bg-grid"></div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <a href="index.html" class="logo">DataScript AI</a>
+        <nav class="nav-links">
+            <a href="#showcase">Características</a>
+            <a href="#demo">Demo</a>
+            <a href="#testimonials">Reseñas</a>
+            <a href="#how-it-works">Cómo funciona</a>
+        </nav>
+        <a href="html/login.html" class="btn-login">Iniciar Sesión</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Floating Technical Data (REG_HIKE style) -->
+        <div class="floating-data fd-left">
+            <div class="fd-line">[<span class="fd-accent">MOUNT-EX NAV SYSTEM</span>]</div>
+            <div class="fd-line">INITIALIZING: prod_database...</div>
+            <div class="fd-line">SYSTEM BOOT: SUCCESSFUL</div>
+            <div class="fd-line">CONNECTING TO DATABASE GRID [OK]</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">>> ACTIVE SCAN INITIATED</div>
+            <div class="fd-line">GEO-LOCK STATUS: ENABLED</div>
+            <div class="fd-line">PATHWAY INTEGRITY: VERIFIED</div>
+            <div class="fd-line">ELEVATION PARAMETERS: SET</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">[NOTICE]: NEW SCHEMA DISCOVERED</div>
+            <div class="fd-line">CODE: ALPHA-021-DELTA</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">ESTIMATED DIFFICULTY: INTERMEDIATE</div>
+            <div class="fd-line">SPECTRAL HIGHLIGHTS: GLACIAL_PATH</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">>> SYSTEM READY</div>
+        </div>
+
+        <div class="floating-data fd-right">
+            <div class="fd-line">>> NEARBY: TABLES SCANNED</div>
+            <div class="fd-line">OMEGA-RIDGE: 9.7KM</div>
+            <div class="fd-line">CHIMNEY-ABE: 1.1KM</div>
+            <div class="fd-line">NOVA-PEAK: 0.2KM</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">:: AWAITING USER INPUT ::</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">ALPHA-021-DELTA</div>
+            <div class="fd-line">CALIBRATING: 56%</div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">XRAY-07-ALPHA</div>
+            <div class="fd-line">STATUS: <span class="fd-accent">ACTIVE</span></div>
+            <div class="fd-line">---</div>
+            <div class="fd-line">HOTEL-98-FOXTROT</div>
+            <div class="fd-line">CALIBRATING: 88%</div>
+        </div>
+
+        <div class="floating-label fl-1">
+            <span class="fl-dot"></span>
+            <span class="fl-text">47 TABLAS</span>
+        </div>
+        <div class="floating-label fl-2">
+            <span class="fl-dot"></span>
+            <span class="fl-text">38 RELACIONES</span>
+        </div>
+        <div class="floating-label fl-3">
+            <span class="fl-dot"></span>
+            <span class="fl-text">DIAGRAMA ER: COMPLETO</span>
+        </div>
+        <div class="floating-label fl-4">
+            <span class="fl-dot"></span>
+            <span class="fl-text">SALUD: 98%</span>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Impulsado por IA Generativa
+            </div>
+            <h1>
+                <span class="hero-line">Documenta tu base de datos</span>
+                <span class="hero-line gradient-text">como nunca antes.</span>
+            </h1>
+            <p class="hero-subtitle">Amplía y mejora tus esquemas para elevar la calidad del diseño. Genera diagramas ER interactivos, audita anomalías de integridad y transpila código con un solo clic.</p>
+            <div class="hero-actions">
+                <a href="html/login.html" class="btn-hero-primary">
+                    <span>Comenzar Gratis</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#showcase" class="btn-hero-secondary">
+                    Ver Demostración
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats below hero text -->
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="stat-value">
+                    <span class="hero-stat-number" data-target="100">0</span>+
+                </div>
+                <span class="hero-stat-label">Usuarios Activos</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <div class="stat-value">
+                    <span class="hero-stat-number" data-target="70">0</span>+
+                </div>
+                <span class="hero-stat-label">Esquemas Analizados</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <div class="stat-value">
+                    <span class="hero-stat-number" data-target="99">0</span>.9%
+                </div>
+                <span class="hero-stat-label">Uptime Garantizado</span>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Trusted Technologies Bar (Marquee) -->
+    <section class="trust-bar">
+        <div class="trust-content">
+            <p class="trust-label">Compatible con las bases de datos líderes del mercado</p>
+            <div class="trust-marquee">
+                <div class="marquee-track">
+                    <span class="trust-logo">PostgreSQL</span>
+                    <span class="trust-logo">MySQL</span>
+                    <span class="trust-logo">SQL Server</span>
+                    <span class="trust-logo">Oracle</span>
+                    <span class="trust-logo">MongoDB</span>
+                    <span class="trust-logo">MariaDB</span>
+                    <span class="trust-logo">SQLite</span>
+                    <span class="trust-logo">Redis</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="trust-logo">PostgreSQL</span>
+                    <span class="trust-logo">MySQL</span>
+                    <span class="trust-logo">SQL Server</span>
+                    <span class="trust-logo">Oracle</span>
+                    <span class="trust-logo">MongoDB</span>
+                    <span class="trust-logo">MariaDB</span>
+                    <span class="trust-logo">SQLite</span>
+                    <span class="trust-logo">Redis</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Before/After Showcase Grid -->
+    <section class="showcase-grid" id="showcase">
+        <div class="section-header">
+            <h2>De código plano a <span class="gradient-text">inteligencia visual</span></h2>
+            <p class="section-desc">Transforma tus esquemas en documentación profesional en segundos.</p>
+        </div>
+
+        <div class="showcase-cards">
+
+            <!-- CARD 1: Diagramación ER -->
+            <article class="showcase-card glass-panel tech-frame">
+                <div class="tech-corners">
+                    <span class="corner corner-tl"></span>
+                    <span class="corner corner-tr"></span>
+                    <span class="corner corner-bl"></span>
+                    <span class="corner corner-br"></span>
+                </div>
+                <div class="card-content">
+                    <div class="card-visual">
+                        <div class="visual-mockup mockup-er">
+                            <div class="er-node" style="top:28%; left:22%;">
+                                <span class="er-label">usuarios</span>
+                                <span class="er-dot"></span>
+                            </div>
+                            <div class="er-node" style="top:60%; left:55%;">
+                                <span class="er-label">pedidos</span>
+                                <span class="er-dot"></span>
+                            </div>
+                            <div class="er-node" style="top:22%; left:68%;">
+                                <span class="er-label">productos</span>
+                                <span class="er-dot"></span>
+                            </div>
+                            <svg class="er-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <line x1="28" y1="32" x2="52" y2="58" />
+                                <line x1="58" y1="58" x2="68" y2="28" />
+                                <line x1="28" y1="32" x2="68" y2="28" />
+                            </svg>
+                            <div class="er-glow"></div>
+                        </div>
+                        <div class="visual-fade"></div>
+                    </div>
+                    <div class="card-text">
+                        <span class="card-tag">01 // DIAGRAMA ER</span>
+                        <h3>Diagrama ER Relacional</h3>
+                        <p>Convierte código SQL en hermosos esquemas interactivos con un solo clic. Visualiza relaciones, llaves foráneas y dependencias en tiempo real.</p>
+                        <a href="#demo" class="card-cta">
+                            <span>Explorar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 2: Auditoría y Anomalías -->
+            <article class="showcase-card glass-panel tech-frame">
+                <div class="tech-corners">
+                    <span class="corner corner-tl"></span>
+                    <span class="corner corner-tr"></span>
+                    <span class="corner corner-bl"></span>
+                    <span class="corner corner-br"></span>
+                </div>
+                <div class="card-content reverse">
+                    <div class="card-text">
+                        <span class="card-tag">02 // AUDITORÍA</span>
+                        <h3>Auditoría de Anomalías</h3>
+                        <p>Detecta automáticamente tablas sin llaves primarias, índices faltantes y tipos de datos inconsistentes. Obtén un score de salud accionable al instante.</p>
+                        <a href="#demo" class="card-cta">
+                            <span>Analizar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                    <div class="card-visual">
+                        <div class="visual-mockup mockup-audit">
+                            <div class="audit-radar">
+                                <div class="radar-ring r1"></div>
+                                <div class="radar-ring r2"></div>
+                                <div class="radar-ring r3"></div>
+                                <div class="radar-core">
+                                    <span class="radar-score">98%</span>
+                                    <span class="radar-label">SALUD</span>
+                                </div>
+                            </div>
+                            <div class="audit-particles">
+                                <span class="ap" style="top:15%; left:20%;"></span>
+                                <span class="ap" style="top:75%; left:15%;"></span>
+                                <span class="ap" style="top:25%; left:80%;"></span>
+                                <span class="ap" style="top:70%; left:75%;"></span>
+                                <span class="ap" style="top:50%; left:10%;"></span>
+                                <span class="ap" style="top:45%; left:88%;"></span>
+                            </div>
+                        </div>
+                        <div class="visual-fade left"></div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 3: Conversión de Esquemas -->
+            <article class="showcase-card glass-panel tech-frame">
+                <div class="tech-corners">
+                    <span class="corner corner-tl"></span>
+                    <span class="corner corner-tr"></span>
+                    <span class="corner corner-bl"></span>
+                    <span class="corner corner-br"></span>
+                </div>
+                <div class="card-content">
+                    <div class="card-visual">
+                        <div class="visual-mockup mockup-transpile">
+                            <div class="transpile-left">
+                                <div class="tp-header">SQL</div>
+                                <div class="tp-code">
+                                    <span class="tp-line">CREATE TABLE users</span>
+                                    <span class="tp-line">  id INT PK,</span>
+                                    <span class="tp-line">  name VARCHAR(50)</span>
+                                    <span class="tp-line">);</span>
+                                </div>
+                            </div>
+                            <div class="transpile-arrow">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </div>
+                            <div class="transpile-right">
+                                <div class="tp-header">PRISMA</div>
+                                <div class="tp-code">
+                                    <span class="tp-line">model User {</span>
+                                    <span class="tp-line">  id   Int  @id</span>
+                                    <span class="tp-line">  name String</span>
+                                    <span class="tp-line">}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visual-fade"></div>
+                    </div>
+                    <div class="card-text">
+                        <span class="card-tag">03 // CONVERSIÓN</span>
+                        <h3>Conversión de Esquemas</h3>
+                        <p>Transpila SQL relacional a Prisma ORM, MongoDB, GraphQL y más. Adapta tu modelo de datos a cualquier stack tecnológico sin perder integridad.</p>
+                        <a href="#demo" class="card-cta">
+                            <span>Transpilar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CARD 4: Generación de Datos -->
+            <article class="showcase-card glass-panel tech-frame">
+                <div class="tech-corners">
+                    <span class="corner corner-tl"></span>
+                    <span class="corner corner-tr"></span>
+                    <span class="corner corner-bl"></span>
+                    <span class="corner corner-br"></span>
+                </div>
+                <div class="card-content reverse">
+                    <div class="card-text">
+                        <span class="card-tag">04 // GENERACIÓN</span>
+                        <h3>Generar Datos Sintéticos</h3>
+                        <p>Puebla esquemas vacíos con datos realistas para pruebas, demos y desarrollo local. Mantén la privacidad con datos sintéticos de alta fidelidad.</p>
+                        <a href="#demo" class="card-cta">
+                            <span>Generar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                    <div class="card-visual">
+                        <div class="visual-mockup mockup-datagen">
+                            <div class="dg-header">
+                                <span class="dg-dot"></span>
+                                <span class="dg-title">synthetic_data.sql</span>
+                                <span class="dg-status">GENERATING</span>
+                            </div>
+                            <div class="dg-table">
+                                <div class="dg-row dg-h"><span>id</span><span>name</span><span>email</span></div>
+                                <div class="dg-row"><span>001</span><span>Ana L.</span><span>ana@dev.io</span></div>
+                                <div class="dg-row"><span>002</span><span>Carlos M.</span><span>cm@data.net</span></div>
+                                <div class="dg-row"><span>003</span><span>Sofia R.</span><span>sof@tech.co</span></div>
+                                <div class="dg-row"><span>004</span><span>Mateo P.</span><span>mp@ai.lab</span></div>
+                                <div class="dg-row"><span>005</span><span>Lucia T.</span><span>lt@sys.co</span></div>
+                            </div>
+                            <div class="dg-progress">
+                                <div class="dg-bar"></div>
+                            </div>
+                        </div>
+                        <div class="visual-fade left"></div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>¿Cómo funciona?</h2>
+            <p class="section-desc">Tres pasos para transformar tu base de datos en documentación profesional.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-line"></div>
+            <div class="steps-row">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <h4>Conecta tu Base de Datos</h4>
+                    <p>Ingresa la cadena de conexión o sube tu archivo SQL. Soportamos PostgreSQL, MySQL, Oracle y más.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
+                    <h4>La IA Analiza y Documenta</h4>
+                    <p>Nuestro motor de IA examina relaciones, detecta anomalías y genera documentación técnica completa.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <h4>Exporta y Comparte</h4>
+                    <p>Descarga diagramas ER, reportes de auditoría y documentación en PDF, Markdown o HTML al instante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="demo-section" id="demo">
+        <div class="demo-bg-grid"></div>
+        <div class="demo-content">
+            <div class="demo-text">
+                <h2>Observa la magia en <span class="gradient-text">tiempo real</span></h2>
+                <p class="section-desc">Así es como DataScript AI transforma un esquema crudo en un dashboard interactivo completo.</p>
+                <ul class="demo-features">
+                    <li>
+                        <span class="demo-check">✦</span>
+                        <span>Detección automática de relaciones y cardinalidad</span>
+                    </li>
+                    <li>
+                        <span class="demo-check">✦</span>
+                        <span>Score de salud con recomendaciones accionables</span>
+                    </li>
+                    <li>
+                        <span class="demo-check">✦</span>
+                        <span>Exportación multi-formato con un clic</span>
+                    </li>
+                </ul>
+                <a href="html/login.html" class="btn-hero-primary btn-demo">
+                    <span>Probar Demo Interactiva</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="demo-visual">
+                <div class="holo-card">
+                    <div class="holo-header">
+                        <div class="holo-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="holo-title">DataScript Dashboard</span>
+                        <span class="holo-status">● En vivo</span>
+                    </div>
+                    <div class="holo-body">
+                        <div class="holo-sidebar">
+                            <div class="holo-nav-item active">Esquemas</div>
+                            <div class="holo-nav-item">Diagramas</div>
+                            <div class="holo-nav-item">Auditoría</div>
+                            <div class="holo-nav-item">Exportar</div>
+                        </div>
+                        <div class="holo-main">
+                            <div class="holo-schema">
+                                <div class="holo-table">
+                                    <div class="holo-table-name">usuarios</div>
+                                    <div class="holo-col pk">id <span>INT PK</span></div>
+                                    <div class="holo-col">nombre <span>VARCHAR</span></div>
+                                    <div class="holo-col">email <span>VARCHAR</span></div>
+                                </div>
+                                <div class="holo-connector"></div>
+                                <div class="holo-table">
+                                    <div class="holo-table-name">pedidos</div>
+                                    <div class="holo-col pk">id <span>INT PK</span></div>
+                                    <div class="holo-col fk">usuario_id <span>INT FK</span></div>
+                                    <div class="holo-col">total <span>DECIMAL</span></div>
+                                </div>
+                            </div>
+                            <div class="holo-insight">
+                                <span class="insight-icon">⚡</span>
+                                <span>Relación 1:N detectada automáticamente</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="holo-reflection"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-header">
+            <h2>Lo que dicen nuestros <span class="gradient-text">usuarios</span></h2>
+            <p class="section-desc">Ingenieros, arquitectos y DBAs que ya documentan sus bases de datos automáticamente.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"DataScript AI redujo el tiempo de documentación de nuestro data warehouse de semanas a minutos. El diagrama ER interactivo es impresionante."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SR</div>
+                    <div class="author-info">
+                        <div class="author-name">Sofía Rodríguez</div>
+                        <div class="author-role">Database Architect</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"La auditoría de anomalías nos ayudó a descubrir 12 tablas sin llaves primarias que llevaban años así. Un salvavidas para nuestro equipo."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">CM</div>
+                    <div class="author-info">
+                        <div class="author-name">Carlos Mendoza</div>
+                        <div class="author-role">Lead Backend Developer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Transpilamos todo nuestro esquema de MySQL a Prisma en un solo día. La precisión del motor de IA superó todas nuestras expectativas."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AL</div>
+                    <div class="author-info">
+                        <div class="author-name">Ana Llerena</div>
+                        <div class="author-role">Senior Data Engineer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Como DBA, necesitaba una herramienta que entendiera la complejidad de Oracle. DataScript no solo la entiende, la explica de forma visual."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div class="author-info">
+                        <div class="author-name">Alejandro Kovac</div>
+                        <div class="author-role">Cloud Infrastructure Engineer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"El modo demo nos permitió probar todo sin compromiso. Ahora mi equipo de 15 devs usa DataScript como estándar en cada proyecto."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">LT</div>
+                    <div class="author-info">
+                        <div class="author-name">Lucía Tejeda</div>
+                        <div class="author-role">Systems Architect</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-panel">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Exportamos la documentación directamente a Markdown para nuestro repo. El flujo de CI/CD nunca fue tan fluido."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MP</div>
+                    <div class="author-info">
+                        <div class="author-name">Mateo Peralta</div>
+                        <div class="author-role">Fullstack Engineer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="final-cta-glow"></div>
+        <div class="final-cta-particles" id="cta-particles"></div>
+        <div class="final-cta-content">
+            <h2>¿Listo para documentar tu base de datos?</h2>
+            <p>Empieza ahora gratis. Sin tarjeta de crédito. Sin configuración compleja.</p>
+            <a href="html/login.html" class="btn-hero-primary btn-cta-final">
+                <span>Comenzar Ahora</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <span class="cta-guarantee">✦ Acceso gratuito incluido durante el periodo de lanzamiento</span>
+        </div>
+    </section>
+
+    <!-- Mountains at the very bottom of the page -->
+    <div class="page-mountains-container">
+        <canvas id="mountain-canvas" class="page-mountains"></canvas>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="footer-brand">DataScript AI</span>
+            <span class="footer-copy">© 2026 DataScript AI. Todos los derechos reservados.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/landing.js"></script>
+</body>
+
+</html>

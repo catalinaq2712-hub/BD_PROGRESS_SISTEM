@@ -1,0 +1,99 @@
+Table usuarios {
+  id integer [primary key]
+  nombre varchar
+  email varchar
+  edad integer
+  activo boolean
+}
+
+Table productos {
+  id integer [primary key]
+  nombre varchar
+  precio decimal
+  stock integer
+  categoria_id integer
+}
+
+Table categorias {
+  id integer [primary key]
+  nombre varchar
+  descripcion text
+}
+
+Table pedidos {
+  id integer [primary key]
+  usuario_id integer
+  fecha date
+  total decimal
+  estado varchar
+}
+
+Table clientes {
+  id integer [primary key]
+  nombre varchar
+  tipo varchar
+  contacto varchar
+  ciudad varchar
+}
+
+Table empleados {
+  id integer [primary key]
+  nombre varchar
+  puesto varchar
+  salario decimal
+  departamento_id integer
+}
+
+Table departamentos {
+  id integer [primary key]
+  nombre varchar
+  ubicacion varchar
+  presupuesto decimal
+}
+
+Table proveedores {
+  id integer [primary key]
+  nombre varchar
+  telefono varchar
+  ciudad varchar
+  email varchar
+}
+
+Table ventas {
+  id integer [primary key]
+  producto_id integer
+  cantidad integer
+  fecha date
+  vendedor_id integer
+}
+
+Table facturas {
+  id integer [primary key]
+  pedido_id integer
+  fecha_emision date
+  monto decimal
+  pagada boolean
+}
+
+Ref: productos.categoria_id > categorias.id
+Ref: pedidos.usuario_id > usuarios.id
+Ref: empleados.departamento_id > departamentos.id
+Ref: ventas.producto_id > productos.id
+Ref: ventas.vendedor_id > empleados.id
+Ref: facturas.pedido_id > pedidos.id
+
+// ========== DATOS ==========
+Table usuarios_data {
+  id nombre email edad activo
+  1 "Ana García" "ana@email.com" 28 true
+  2 "Carlos López" "carlos@email.com" 34 true
+  3 "María Rodríguez" "maria@email.com" 25 false
+}
+
+Table productos_data {
+  id nombre precio stock categoria_id
+  1 "Laptop" 899.99 15 1
+  2 "Mouse" 25.50 50 1
+  3 "Teclado" 79.99 30 1
+  4 "Monitor" 199.99 10 2
+}

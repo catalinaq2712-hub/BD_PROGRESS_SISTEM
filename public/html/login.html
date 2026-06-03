@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataScript AI - Acceso</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <script>
+    if (sessionStorage.getItem('ds_logged') === 'true') {
+        window.location.replace('usu_panel.html');
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="cardContainer">
+            <div class="logo-header">
+                <h1>DataScript AI</h1>
+                <p>Convierte tus bases de datos en documentos profesionales</p>
+            </div>
+            <!-- LOGIN -->
+            <div class="form-container login-form" id="loginFormContainer">
+                <h2>Iniciar Sesión</h2>
+                <div class="field">
+                    <label>Usuario</label>
+                    <input type="text" id="loginUser" placeholder="Usuario">
+                </div>
+                <div class="field">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPass" placeholder="Contraseña">
+                </div>
+                <button id="btnLogin">Acceder</button>
+                <p class="switch-link">¿No tiene una cuenta? <a href="#" id="showRegister">Regístrese</a></p>
+            </div>
+            <!-- REGISTRO -->
+            <div class="form-container register-form" id="registerFormContainer" style="display: none;">
+                <h2>Regístrate</h2>
+                <div class="field-row">
+                    <div class="field"><label>Nombres</label><input type="text" id="regNombres"></div>
+                    <div class="field"><label>Apellidos</label><input type="text" id="regApellidos"></div>
+                </div>
+                <div class="field"><label>Correo Electrónico</label><input type="email" id="regEmail"></div>
+                <div class="field">
+                    <label>Tipo de uso</label>
+                    <select id="regTipoUso">
+                        <option>Personal</option><option>Profesional</option><option>Educativo</option><option>Empresarial</option>
+                    </select>
+                </div>
+                <div class="field"><label>Usuario</label><input type="text" id="regUsuario"></div>
+                <div class="field-row">
+                    <div class="field"><label>Contraseña</label><input type="password" id="regPassword"></div>
+                    <div class="field"><label>Confirmar</label><input type="password" id="regConfirmPassword"></div>
+                </div>
+                <button id="btnRegister">Crear Usuario</button>
+                <p class="switch-link">¿Ya tienes una cuenta? <a href="#" id="showLogin">Iniciar Sesión</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# Core SQL Analysis
+sqlglot>=18.0.0
+sql-metadata>=2.7.0
+sqlparse>=0.4.4
+
+# NoSQL/JSON Analysis
+jsonschema>=4.17.0
+pymongo>=4.5.0
+pyyaml>=6.0
+
+# Diagram Generation
+graphviz>=0.20.1
+networkx>=3.1.0
+matplotlib>=3.7.0
+
+# Data Processing
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Schema Conversion
+lxml>=4.9.0
+
+# Data Generation (test data / fake data)
+faker>=18.0.0
