@@ -78,7 +78,7 @@ async function actualizarDashboard() {
         const sortedDocs = [...docs].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
         // Tomar los últimos 10 para mantener el gráfico limpio
         const recentDocs = sortedDocs.slice(-10);
-        
+
         labels = recentDocs.map(doc => {
             const d = new Date(doc.created_at);
             const dia = String(d.getDate()).padStart(2, '0');
@@ -87,7 +87,7 @@ async function actualizarDashboard() {
             const mins = String(d.getMinutes()).padStart(2, '0');
             return `${dia}/${mes} ${horas}:${mins}`;
         });
-        
+
         dataPoints = recentDocs.map((_, idx) => idx + 1);
     } else {
         // Hermoso fallback interactivo con actividad simulada realista para que el gráfico NUNCA esté vacío
@@ -98,37 +98,65 @@ async function actualizarDashboard() {
     try {
         const ctx = document.getElementById('actividadChart').getContext('2d');
         if (chartInstance) chartInstance.destroy();
+
+        const isStellar = document.body.classList.contains('theme-space');
+        const borderColor = isStellar ? '#22d3ee' : '#a78bfa';
+        const pointColor = isStellar ? '#e879f9' : '#a78bfa';
+        const gridColor = isStellar ? 'rgba(34, 211, 238, 0.08)' : 'rgba(255, 255, 255, 0.05)';
+        const pointBorderColor = isStellar ? '#060913' : '#0a0e1a';
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        if (isStellar) {
+            gradient.addColorStop(0, 'rgba(34, 211, 238, 0.45)');
+            gradient.addColorStop(0.5, 'rgba(167, 139, 250, 0.15)');
+            gradient.addColorStop(1, 'rgba(6, 9, 19, 0.0)');
+        } else {
+            gradient.addColorStop(0, 'rgba(167, 139, 250, 0.35)');
+            gradient.addColorStop(1, 'rgba(94, 106, 210, 0.0)');
+        }
+
         chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: { 
-            labels: labels, 
-            datasets: [{ 
-                label: 'Historial de Documentos', 
-                data: dataPoints, 
-                borderColor: '#a78bfa', 
-                backgroundColor: 'rgba(167,139,250,0.1)', 
-                fill: true,
-                tension: 0.4,
-                pointRadius: 5,
-                pointBackgroundColor: '#a78bfa'
-            }] 
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#9ca3af' }
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Historial de Documentos',
+                    data: dataPoints,
+                    borderColor: borderColor,
+                    backgroundColor: gradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: pointColor,
+                    pointBorderColor: pointBorderColor,
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#cbd5e1',
+                            font: { family: 'Outfit' }
+                        }
+                    }
                 },
-                x: {
-                    grid: { display: false },
-                    ticks: { color: '#9ca3af' }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: gridColor },
+                        ticks: { color: '#9ca3af', font: { family: 'Outfit' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#9ca3af', font: { family: 'Outfit' } }
+                    }
                 }
             }
-        }
-    });
+        });
     } catch (e) {
         console.error("Error al renderizar Chart.js:", e);
     }
@@ -140,6 +168,9 @@ async function actualizarDashboard() {
 }
 
 document.getElementById('verGuardadosLink')?.addEventListener('click', () => window.location.href = 'usu_guardados.html');
+document.getElementById('verCompartidosLink')?.addEventListener('click', () => window.location.href = 'usu_compartidos.html');
+document.getElementById('verCompartidosLink2')?.addEventListener('click', () => window.location.href = 'usu_compartidos.html');
+document.getElementById('verAntiguedadLink')?.addEventListener('click', () => window.location.href = 'usu_guardados.html');
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     try {
         await supabaseClient.auth.signOut();
@@ -149,4 +180,9 @@ document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     sessionStorage.clear();
     window.location.href = '/';
 });
+
+window.addEventListener('stellarThemeChanged', () => {
+    actualizarDashboard();
+});
+
 actualizarDashboard();

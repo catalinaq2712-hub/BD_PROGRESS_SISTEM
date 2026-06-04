@@ -822,9 +822,9 @@ async function mostrarModalCompartir(doc) {
                         <select id="shareUserSelect" class="share-select" style="flex: 1;" ${perfiles.length === 0 ? 'disabled' : ''}>
                             ${userOptions}
                         </select>
-                        <select id="sharePermisoSelect" class="share-select" style="width: 130px;">
-                            <option value="ver">👁️ Lector</option>
-                            <option value="editar">✍️ Editor</option>
+                        <select id="sharePermisoSelect" class="share-select" style="width: 170px;">
+                            <option value="ver">Lector (Solo ver)</option>
+                            <option value="editar">Editor (Ver y editar)</option>
                         </select>
                     </div>
                     <button id="btnConcederAcceso" class="share-submit-btn" ${perfiles.length === 0 ? 'disabled' : ''}>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>DataScript AI - Dashboard</title>
@@ -10,58 +11,72 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-    window.onerror = function(message, source, lineno, colno, error) {
-        alert("⚠️ ERROR DETECTADO (Panel): " + message + " en " + source + ":" + lineno);
-    };
-    window.onunhandledrejection = function(event) {
-        alert("⚠️ PROMESA RECHAZADA (Panel): " + event.reason);
-    };
-    
-    // Si no hay sesión iniciada, expulsar al login inmediatamente
-    if (!sessionStorage.getItem('ds_logged')) {
-        window.location.replace('login.html');
-    }
-    
-    // Controlar el evento 'pageshow' para cuando el navegador vuelve atrás usando caché
-    window.addEventListener('pageshow', function (event) {
+        window.onerror = function (message, source, lineno, colno, error) {
+            alert("⚠️ ERROR DETECTADO (Panel): " + message + " en " + source + ":" + lineno);
+        };
+        window.onunhandledrejection = function (event) {
+            alert("⚠️ PROMESA RECHAZADA (Panel): " + event.reason);
+        };
+
+        // Si no hay sesión iniciada, expulsar al login inmediatamente
         if (!sessionStorage.getItem('ds_logged')) {
             window.location.replace('login.html');
         }
-    });
 
-    async function logoutSession() {
-        try {
-            if (window.supabaseClient && window.supabaseClient.auth) {
-                await window.supabaseClient.auth.signOut();
-            } else if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
-                await supabaseClient.auth.signOut();
+        // Controlar el evento 'pageshow' para cuando el navegador vuelve atrás usando caché
+        window.addEventListener('pageshow', function (event) {
+            if (!sessionStorage.getItem('ds_logged')) {
+                window.location.replace('login.html');
             }
-        } catch (err) {
-            console.error('Error al cerrar sesión en Supabase:', err);
+        });
+
+        async function logoutSession() {
+            try {
+                if (window.supabaseClient && window.supabaseClient.auth) {
+                    await window.supabaseClient.auth.signOut();
+                } else if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
+                    await supabaseClient.auth.signOut();
+                }
+            } catch (err) {
+                console.error('Error al cerrar sesión en Supabase:', err);
+            }
+            sessionStorage.clear();
+            window.location.replace('login.html');
         }
-        sessionStorage.clear();
-        window.location.replace('login.html');
-    }
     </script>
 </head>
+
 <body>
-<div class="dashboard-wrapper">
-    <app-sidebar active-page="dashboard"></app-sidebar>
-    <main class="content">
-        <h1>Dashboard</h1>
-        <div class="cards-grid">
-            <div class="stat-card"><h3>N° de documentos</h3><div class="stat-number" id="totalDocs">--</div><span class="ingresar-link" id="verGuardadosLink">Ingresar >></span></div>
-            <div class="stat-card"><h3>Espacios de trabajo</h3><div class="stat-number">2</div><span class="ingresar-link">Ingresar >></span></div>
-            <div class="stat-card"><h3>Antigüedad (días)</h3><div class="stat-number" id="antiguedad">--</div><span class="ingresar-link">Ingresar >></span></div>
-        </div>
-        <div class="chart-container">
-            <h3>Actividad mensual</h3>
-            <canvas id="actividadChart" width="400" height="200"></canvas>
-            <div id="mensajeInfo" class="mensaje" style="display: none;"></div>
-        </div>
-        <footer class="footer"><center>Tiempo de actividad: Año 2026</center></footer>
-    </main>
-</div>
-<script src="../js/usu_panel.js"></script>
+    <div class="dashboard-wrapper">
+        <app-sidebar active-page="dashboard"></app-sidebar>
+        <main class="content">
+            <h1>Dashboard</h1>
+            <div class="cards-grid">
+                <div class="stat-card">
+                    <h3>N° de documentos</h3>
+                    <div class="stat-number" id="totalDocs">--</div><span class="ingresar-link"
+                        id="verGuardadosLink">Ingresar >></span>
+                </div>
+                <div class="stat-card">
+                    <h3>Espacios de trabajo</h3>
+                    <div class="stat-number">2</div><span class="ingresar-link">Ingresar >></span>
+                </div>
+                <div class="stat-card">
+                    <h3>Antigüedad (días)</h3>
+                    <div class="stat-number" id="antiguedad">--</div><span class="ingresar-link">Ingresar >></span>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Actividad mensual</h3>
+                <canvas id="actividadChart" width="400" height="200"></canvas>
+                <div id="mensajeInfo" class="mensaje" style="display: none;"></div>
+            </div>
+            <footer class="footer">
+                <center>Tiempo de actividad: Año 2026</center>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/usu_panel.js"></script>
 </body>
-</html>
+
+</html>

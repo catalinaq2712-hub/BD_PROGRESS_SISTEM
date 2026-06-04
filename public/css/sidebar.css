@@ -94,8 +94,21 @@ app-sidebar {
 }
 
 /* Logout button specific styles */
-.menu-item.logout {
+.menu-item.theme-toggle {
     margin-top: auto;
+    color: #a78bfa;
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    background: rgba(167, 139, 250, 0.05);
+}
+
+.menu-item.theme-toggle:hover {
+    background: rgba(167, 139, 250, 0.15);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.25);
+}
+
+.menu-item.logout {
+    margin-top: 8px;
     margin-bottom: 12px;
     color: #f87171;
     border: 1px dashed rgba(248, 113, 113, 0.2);
@@ -105,4 +118,201 @@ app-sidebar {
     background: rgba(239, 68, 68, 0.15);
     color: #fca5a5;
     border-color: rgba(248, 113, 113, 0.4);
+}
+
+/* ==========================================================================
+   Modo Estelar (Premium Space Theme Override)
+   ========================================================================== */
+
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 0.5s ease;
+}
+
+.bg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(167, 139, 250, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(167, 139, 250, 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 0;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at 50% 50%, black 0%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 0%, transparent 80%);
+    opacity: 0.9;
+    transition: opacity 0.5s ease;
+}
+
+body.theme-space {
+    background: #060913 !important;
+}
+
+body.theme-space .dashboard-wrapper,
+body.theme-space .content,
+body.theme-space .seccion-tabla,
+body.theme-space .chart-container,
+body.theme-space .cards-grid {
+    position: relative;
+    z-index: 1;
+}
+
+body.theme-space .sidebar {
+    background: rgba(10, 14, 26, 0.85) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(167, 139, 250, 0.15) !important;
+}
+
+@keyframes borderPulse {
+    0%, 100% {
+        border-color: rgba(167, 139, 250, 0.12) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+    }
+    50% {
+        border-color: rgba(34, 211, 238, 0.35) !important;
+        box-shadow: 0 8px 32px rgba(34, 211, 238, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    }
+}
+
+body.theme-space .stat-card,
+body.theme-space .seccion-tabla,
+body.theme-space .chart-container,
+body.theme-space .container,
+body.theme-space .card,
+body.theme-space .doc-container {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.12) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+    animation: borderPulse 6s ease-in-out infinite;
+}
+
+body.theme-space .stat-card:hover {
+    border-color: rgba(167, 139, 250, 0.35) !important;
+    box-shadow: 0 8px 32px rgba(167, 139, 250, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    transform: translateY(-3px);
+}
+
+body.theme-space .doc-table th {
+    background: rgba(167, 139, 250, 0.06) !important;
+    border-bottom: 2px solid rgba(167, 139, 250, 0.18) !important;
+}
+
+body.theme-space .doc-table td {
+    border-bottom: 1px solid rgba(167, 139, 250, 0.08) !important;
+}
+
+body.theme-space .doc-table tr:hover {
+    background: rgba(167, 139, 250, 0.04) !important;
+}
+
+/* Radical button and header overrides for space mode (UI elements only) */
+body.theme-space .content > h1,
+body.theme-space .logo-sidebar,
+body.theme-space .share-modal-title,
+body.theme-space .seccion-tabla h2,
+body.theme-space .modal-content h3 {
+    background: linear-gradient(135deg, #22d3ee, #a78bfa, #e879f9) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    font-weight: 800;
+    text-shadow: none !important;
+}
+
+/* Shield A4 preview sheet headings from space mode bleeding */
+body.theme-space .a4-sheet h1,
+body.theme-space .a4-sheet h2,
+body.theme-space .a4-sheet h3,
+body.theme-space .a4-sheet p,
+body.theme-space .a4-sheet span,
+body.theme-space .a4-sheet div {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: #1f2937 !important;
+}
+
+body.theme-space .menu-item.active {
+    background: linear-gradient(135deg, #a78bfa, #5e6ad2) !important;
+    box-shadow: 0 0 20px rgba(94, 106, 210, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.theme-space .action-buttons button.view-doc {
+    background: rgba(34, 211, 238, 0.08) !important;
+    color: #22d3ee !important;
+    border: 1px solid rgba(34, 211, 238, 0.35) !important;
+}
+body.theme-space .action-buttons button.view-doc:hover {
+    background: #22d3ee !important;
+    color: #060913 !important;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.6) !important;
+}
+
+body.theme-space .action-buttons button.edit-doc {
+    background: rgba(167, 139, 250, 0.08) !important;
+    color: #a78bfa !important;
+    border: 1px solid rgba(167, 139, 250, 0.35) !important;
+}
+body.theme-space .action-buttons button.edit-doc:hover {
+    background: #a78bfa !important;
+    color: #060913 !important;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.6) !important;
+}
+
+body.theme-space .action-buttons button.share-doc {
+    background: rgba(232, 121, 249, 0.08) !important;
+    color: #e879f9 !important;
+    border: 1px solid rgba(232, 121, 249, 0.35) !important;
+}
+body.theme-space .action-buttons button.share-doc:hover {
+    background: #e879f9 !important;
+    color: #060913 !important;
+    box-shadow: 0 0 15px rgba(232, 121, 249, 0.6) !important;
+}
+
+body.theme-space .action-buttons button.delete-doc {
+    background: rgba(239, 68, 68, 0.08) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+body.theme-space .action-buttons button.delete-doc:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6) !important;
+}
+
+body.theme-space .share-submit-btn {
+    background: linear-gradient(135deg, #a78bfa, #5e6ad2) !important;
+    box-shadow: 0 4px 15px rgba(94, 106, 210, 0.4) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+body.theme-space .share-submit-btn:hover {
+    box-shadow: 0 6px 20px rgba(167, 139, 250, 0.6) !important;
+    transform: translateY(-2px);
+}
+
+body.theme-space .share-select {
+    background: rgba(10, 14, 26, 0.6) !important;
+    border: 1px solid rgba(167, 139, 250, 0.25) !important;
+    color: #eef2ff !important;
+    backdrop-filter: blur(8px);
+}
+body.theme-space .share-select:focus {
+    border-color: #a78bfa !important;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.2) !important;
 }
