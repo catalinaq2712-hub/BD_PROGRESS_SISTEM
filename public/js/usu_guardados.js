@@ -53,9 +53,9 @@ async function abrirModalVisualizador(doc) {
     // Función para renderizar la vista de sólo lectura (PDF limpio a pantalla completa sin barra lateral)
     function renderVistaLectura() {
         // Siempre limpiar el fragmento # de la URL base y añadir parámetros frescos + cache-buster
-        const fileLinkBase = fileLink ? fileLink.split('#')[0] : '';
+        const fileLinkBase = fileLink ? fileLink.split('#')[0].split('?')[0] : '';
         const cacheBuster = Date.now();
-        const fileLinkClean = fileLinkBase ? `${fileLinkBase}#toolbar=1&navpanes=0&view=FitH&t=${cacheBuster}` : '';
+        const fileLinkClean = fileLinkBase ? `${fileLinkBase}?t=${cacheBuster}#toolbar=1&navpanes=0&view=FitH` : '';
         
         modalBody.innerHTML = `
             <div class="pdf-modal-view" style="color: #fff; font-family: 'Outfit', sans-serif;">
@@ -253,6 +253,9 @@ async function abrirModalVisualizador(doc) {
         }
 
         // Inicializar TinyMCE
+        if (window.tinymce) {
+            window.tinymce.remove('#editorTiny');
+        }
         window.tinymce.init({
             selector: '#editorTiny',
             height: 650,
@@ -431,6 +434,8 @@ async function abrirModalVisualizador(doc) {
                     setTimeout(() => {
                         abrirModalVisualizador(doc);
                     }, 600);
+                } else {
+                    document.getElementById('docModal').style.display = 'none';
                 }
 
             } catch (err) {
@@ -726,8 +731,16 @@ async function renderTodo() {
 }
 
 const modal = document.getElementById('docModal');
-document.querySelector('.close-modal')?.addEventListener('click', () => { if (modal) modal.style.display = 'none'; });
-window.addEventListener('click', (e) => { if (modal && e.target === modal) modal.style.display = 'none'; });
+document.querySelector('.close-modal')?.addEventListener('click', () => { 
+    if (modal) modal.style.display = 'none'; 
+    if (window.tinymce) window.tinymce.remove('#editorTiny');
+});
+window.addEventListener('click', (e) => { 
+    if (modal && e.target === modal) {
+        modal.style.display = 'none'; 
+        if (window.tinymce) window.tinymce.remove('#editorTiny');
+    }
+});
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     try {
         await supabaseClient.auth.signOut();
@@ -760,7 +773,7 @@ async function mostrarModalCompartir(doc) {
         // 2. Obtener usuarios con acceso actual al documento
         const { data: compartidos, error: compError } = await supabaseClient
             .from('compartidos')
-            .select('id, usuario_compartido_id')
+            .select('id, usuario_compartido_id, permiso')
             .eq('documento_id', doc.id);
             
         if (compError) throw compError;
@@ -775,14 +788,15 @@ async function mostrarModalCompartir(doc) {
             const perfil = perfiles.find(p => p.id === c.usuario_compartido_id);
             return {
                 id: c.id,
-                nombreCompleto: perfil ? `${perfil.nombres} ${perfil.apellidos}` : 'Usuario desconocido'
+                nombreCompleto: perfil ? `${perfil.nombres} ${perfil.apellidos}` : 'Usuario desconocido',
+                permiso: c.permiso || 'ver'
             };
         });
         
         let sharedListHtml = compartidosConNombre.map(c => `
-            <div class="shared-user-item">
-                <span class="shared-user-name">👤 ${escapeHtml(c.nombreCompleto)}</span>
-                <button class="revoke-share-btn" data-share-id="${c.id}">Quitar acceso</button>
+            <div class="shared-user-item" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span class="shared-user-name">👤 ${escapeHtml(c.nombreCompleto)} (${c.permiso === 'editar' ? '✍️ Editor' : '👁️ Lector'})</span>
+                <button class="revoke-share-btn" data-share-id="${c.id}" style="background: #ef4444; padding: 4px 8px; font-size: 0.75rem; border-radius: 4px; border: none; color: #fff; cursor: pointer;">Quitar acceso</button>
             </div>
         `).join('');
         
@@ -797,10 +811,16 @@ async function mostrarModalCompartir(doc) {
                     Documento: <strong style="color: #f3f4f6;">${escapeHtml(doc.nombre)}</strong>
                 </p>
                 
-                <div class="share-form">
-                    <select id="shareUserSelect" class="share-select" ${perfiles.length === 0 ? 'disabled' : ''}>
-                        ${userOptions}
-                    </select>
+                <div class="share-form" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; gap: 10px;">
+                        <select id="shareUserSelect" class="share-select" style="flex: 1;" ${perfiles.length === 0 ? 'disabled' : ''}>
+                            ${userOptions}
+                        </select>
+                        <select id="sharePermisoSelect" class="share-select" style="width: 130px;">
+                            <option value="ver">👁️ Lector</option>
+                            <option value="editar">✍️ Editor</option>
+                        </select>
+                    </div>
                     <button id="btnConcederAcceso" class="share-submit-btn" ${perfiles.length === 0 ? 'disabled' : ''}>
                         Conceder Acceso
                     </button>
@@ -816,6 +836,8 @@ async function mostrarModalCompartir(doc) {
         document.getElementById('btnConcederAcceso')?.addEventListener('click', async () => {
             const selectEl = document.getElementById('shareUserSelect');
             const targetUserId = selectEl.value;
+            const permisoEl = document.getElementById('sharePermisoSelect');
+            const permiso = permisoEl ? permisoEl.value : 'ver';
             if (!targetUserId) return;
             
             const btn = document.getElementById('btnConcederAcceso');
@@ -826,7 +848,8 @@ async function mostrarModalCompartir(doc) {
                 const { error } = await supabaseClient.from('compartidos').insert([
                     {
                         documento_id: doc.id,
-                        usuario_compartido_id: targetUserId
+                        usuario_compartido_id: targetUserId,
+                        permiso: permiso
                     }
                 ]);
                 if (error) {
@@ -848,7 +871,8 @@ async function mostrarModalCompartir(doc) {
                                 detalles: {
                                     documentoId: doc.id,
                                     nombreDocumento: doc.nombre,
-                                    compartidoConId: targetUserId
+                                    compartidoConId: targetUserId,
+                                    permiso: permiso
                                 }
                             })
                         });

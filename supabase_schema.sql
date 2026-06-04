@@ -56,11 +56,13 @@ CREATE TABLE public.compartidos (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   documento_id uuid NOT NULL,
   usuario_compartido_id uuid NOT NULL,
+  permiso text DEFAULT 'ver'::text,
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT compartidos_pkey PRIMARY KEY (id),
   CONSTRAINT compartidos_documento_id_fkey FOREIGN KEY (documento_id) REFERENCES public.documentos (id) ON DELETE CASCADE,
   CONSTRAINT compartidos_usuario_compartido_fkey FOREIGN KEY (usuario_compartido_id) REFERENCES auth.users (id) ON DELETE CASCADE,
-  CONSTRAINT compartidos_doc_user_unique UNIQUE (documento_id, usuario_compartido_id)
+  CONSTRAINT compartidos_doc_user_unique UNIQUE (documento_id, usuario_compartido_id),
+  CONSTRAINT compartidos_permiso_check CHECK (permiso IN ('ver', 'editar'))
 ) TABLESPACE pg_default;
 
 -- 5b. Crear tabla de logs de actividad global
@@ -111,9 +113,16 @@ CREATE POLICY "Los usuarios pueden crear sus propios documentos"
 ON public.documentos FOR INSERT 
 WITH CHECK (auth.uid() = usuario_id);
 
-CREATE POLICY "Los usuarios pueden actualizar sus propios documentos" 
+CREATE POLICY "Los usuarios pueden actualizar sus propios documentos o los compartidos con ellos" 
 ON public.documentos FOR UPDATE 
-USING (auth.uid() = usuario_id);
+USING (
+  auth.uid() = usuario_id 
+  OR id IN (
+    SELECT documento_id FROM public.compartidos
+    WHERE usuario_compartido_id = auth.uid() AND permiso = 'editar'
+  )
+)
+WITH CHECK (true);
 
 CREATE POLICY "Los usuarios pueden borrar sus propios documentos" 
 ON public.documentos FOR DELETE 
@@ -208,3 +217,24 @@ SELECT
   'activo' as estado
 FROM auth.users
 ON CONFLICT (id) DO NOTHING;
+
+-- 13. Políticas RLS para el Bucket de Storage 'documentos_pdf'
+DROP POLICY IF EXISTS "Permitir lectura de PDFs a todos" ON storage.objects;
+CREATE POLICY "Permitir lectura de PDFs a todos" ON storage.objects FOR SELECT
+USING (bucket_id = 'documentos_pdf');
+
+DROP POLICY IF EXISTS "Permitir insertar PDFs a autenticados" ON storage.objects;
+CREATE POLICY "Permitir insertar PDFs a autenticados" ON storage.objects FOR INSERT
+TO authenticated
+WITH CHECK (bucket_id = 'documentos_pdf');
+
+DROP POLICY IF EXISTS "Permitir actualizar PDFs a autenticados" ON storage.objects;
+CREATE POLICY "Permitir actualizar PDFs a autenticados" ON storage.objects FOR UPDATE
+TO authenticated
+USING (bucket_id = 'documentos_pdf')
+WITH CHECK (bucket_id = 'documentos_pdf');
+
+DROP POLICY IF EXISTS "Permitir borrar PDFs a autenticados" ON storage.objects;
+CREATE POLICY "Permitir borrar PDFs a autenticados" ON storage.objects FOR DELETE
+TO authenticated
+USING (bucket_id = 'documentos_pdf');
