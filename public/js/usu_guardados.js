@@ -794,9 +794,15 @@ async function mostrarModalCompartir(doc) {
         });
         
         let sharedListHtml = compartidosConNombre.map(c => `
-            <div class="shared-user-item" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <span class="shared-user-name">👤 ${escapeHtml(c.nombreCompleto)} (${c.permiso === 'editar' ? '✍️ Editor' : '👁️ Lector'})</span>
-                <button class="revoke-share-btn" data-share-id="${c.id}" style="background: #ef4444; padding: 4px 8px; font-size: 0.75rem; border-radius: 4px; border: none; color: #fff; cursor: pointer;">Quitar acceso</button>
+            <div class="shared-user-item">
+                <span class="shared-user-name" style="display: inline-flex; align-items: center; gap: 8px;">
+                    👤 ${escapeHtml(c.nombreCompleto)}
+                    <span style="display:inline-flex; align-items:center; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; 
+                        ${c.permiso === 'editar' ? 'background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2);' : 'background: rgba(148,163,184,0.12); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2);'}">
+                        ${c.permiso === 'editar' ? 'Editor' : 'Lector'}
+                    </span>
+                </span>
+                <button class="revoke-share-btn" data-share-id="${c.id}">Quitar acceso</button>
             </div>
         `).join('');
         
