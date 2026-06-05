@@ -1,8 +1,8 @@
 // Sesión verificada a nivel de página HTML
 
 
-const SUPABASE_URL = 'https://anzravhguhsdfnjfsjcm.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_sIB2jrePXiRBfBidFDFRjA_JeYe5cfP';
+const SUPABASE_URL = 'https://xoohircyfzeodoqlgkyy.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhvb2hpcmN5Znplb2RvcWxna3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MjI2MDYsImV4cCI6MjA5NjE5ODYwNn0.uO3DKRrsXoLJekxIvr_sBTaZ1PKQctKZiqhpsD2NdnE';
 let supabaseClient;
 try {
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
